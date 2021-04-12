@@ -3,6 +3,7 @@ const cors = require('cors')
 const fs = require('fs')
 const PORT = process.env.PORT ? process.env.PORT : 4000
 const app = express()
+const herokuAwake = require('./heroku-awake')
 
 app.use(express.static('statics'))
 app.use(express.urlencoded({extended: false}))
@@ -27,3 +28,5 @@ app.get("/contents",(req, res, next)=>{
 
 
 app.listen(PORT)
+
+setInterval(herokuAwake, 600000)
