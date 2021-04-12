@@ -1,10 +1,12 @@
 const express = require('express');
+const cors = require('cors')
+const fs = require('fs')
 const PORT = process.env.PORT ? process.env.PORT : 4000
 const app = express()
-const fs = require('fs')
 
 app.use(express.static('statics'))
 app.use(express.urlencoded({extended: false}))
+app.use(cors())
 
 app.post("/submit", (req, res, next) => {
     let data = JSON.stringify(req.body)
@@ -20,10 +22,6 @@ app.get("/", (req, res, next) => {
 app.get("/contents",(req, res, next)=>{
     let rawData = fs.readFileSync('contents.json')
     let data = JSON.parse(rawData)
-    res.header("Access-Control-Allow-Origin", '*');
-    res.header("Access-Control-Allow-Credentials", true);
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
     res.send(data)
 })
 
