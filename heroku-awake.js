@@ -1,7 +1,7 @@
 const http = require("http");
 
 function setAwake() {
-  http.get("http://서버주소.herokuapp.com");
+  http.get("https://kau-project.herokuapp.com/contents");
 };
 
 module.exports = setAwake
