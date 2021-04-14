@@ -7,7 +7,7 @@ const formatMessage = require("./utils/messages");
 
 const PORT = process.env.PORT ? process.env.PORT : 5000
 const app = express()
-const server = require("https").Server(app);
+const server = require("http").Server(app);
 const io = require("socket.io")(server, {
   cors: {
     origin: "*",
