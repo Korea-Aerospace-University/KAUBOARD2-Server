@@ -1,7 +1,7 @@
-const http = require("http");
+const https = require("https");
 
 function setAwake() {
-  http.get("https://kau-project.herokuapp.com/contents");
+  https.get("https://kau-project.herokuapp.com/contents");
 };
 
 module.exports = setAwake
