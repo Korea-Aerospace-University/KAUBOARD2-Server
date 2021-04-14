@@ -10,7 +10,7 @@ const overwriteNotice = (req, res, next) => {
   res.redirect('/')
 }
 const getNotice = (req, res, next) => {
-  let rawData = fs.readFileSync('../contents/notice.json')
+  let rawData = fs.readFileSync(__dirname + '/../contents/notice.json')
   let data = JSON.parse(rawData)
   res.send(data)
 }
