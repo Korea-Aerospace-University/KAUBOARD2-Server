@@ -4,10 +4,10 @@ const placesControllers = require('../controllers/places-controllers');
 
 const router = express.Router();
 
-router.get('/', placesControllers.getSubmitPage);
+router.get('/notice/main', placesControllers.getSubmitPage);
 
-router.post('/write-notice', placesControllers.overwriteNotice);
+router.post('/notice/submit', placesControllers.overwriteNotice);
 
-router.get('/current-notice', placesControllers.getNotice);
+router.get('/notice/current', placesControllers.getNotice);
 
 module.exports = router;

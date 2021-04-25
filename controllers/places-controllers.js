@@ -1,5 +1,6 @@
 const fs = require('fs')
 
+// <---notice--->
 const getSubmitPage = (req, res, next) => {
   res.sendFile('/statics/html/home_notice_upload.html', {root:__dirname + '/..'})
 };
@@ -7,13 +8,16 @@ const getSubmitPage = (req, res, next) => {
 const overwriteNotice = (req, res, next) => {
   let data = JSON.stringify(req.body)
   fs.writeFileSync(__dirname + '/../contents/notice.json', data)
-  res.redirect('/')
+  res.redirect('/api/notice/submit')
 }
 const getNotice = (req, res, next) => {
   let rawData = fs.readFileSync(__dirname + '/../contents/notice.json')
   let data = JSON.parse(rawData)
   res.send(data)
 }
+
+// <---wiki--->
+
 
 
 
