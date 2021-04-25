@@ -33,19 +33,8 @@ io.on("connection", (socket) => {
     formatMessage(botName, "카우랜드에 오신 것을 환영합니다!")
   );
 
-  console.log(`User connected: ${id}`);
-  socket.broadcast.emit(
-    "message",
-    formatMessage(botName, "새로운 참여자가 나타났습니다.")
-  );
-
-  socket.on("sendMessage", (msg) => {
-    io.emit("message", formatMessage("user", msg));
-    console.log(msg);
-  });
-
-  socket.on("disconnect", () => {
-    io.emit("message", "참여자가 대화방에서 나갔습니다.");
+  socket.on("sendMessage", (data) => {
+    io.emit("message", formatMessage(data.name, data.msg));
   });
 });
 ///////////////////
