@@ -20,7 +20,7 @@ app.use(express.static('statics'))
 app.use(express.urlencoded({extended: false}))
 app.use(cors())
 
-app.get('/', (req, res, next) => res.redirect('/api'))
+app.get('/', (req, res, next) => res.redirect('/api/notice/main'))
 app.use('/api', placeRoutes)
 
 //////////////////////////

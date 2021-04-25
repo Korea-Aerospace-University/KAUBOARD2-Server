@@ -8,7 +8,7 @@ const getSubmitPage = (req, res, next) => {
 const overwriteNotice = (req, res, next) => {
   let data = JSON.stringify(req.body)
   fs.writeFileSync(__dirname + '/../contents/notice.json', data)
-  res.redirect('/api/notice/submit')
+  res.redirect('/api/notice/main')
 }
 const getNotice = (req, res, next) => {
   let rawData = fs.readFileSync(__dirname + '/../contents/notice.json')
