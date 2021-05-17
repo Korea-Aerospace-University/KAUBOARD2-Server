@@ -6,5 +6,5 @@ module.exports = function (app) {
   app.post("/notices", notice.postNotice);
 
   // 2. 공지 조회 API
-  app.get("/notices", notice.getNotice);
+  app.get("/notices", notice.getNotices);
 };

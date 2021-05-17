@@ -2,7 +2,7 @@ const jwtMiddleware = require("../../../config/jwtMiddleware");
 const noticeService = require("../../app/Notice/noticeService");
 const baseResponse = require("../../../config/baseResponseStatus");
 const { response, errResponse } = require("../../../config/response");
-
+const noticeProvider = require("./noticeProvider");
 const regexEmail = require("regex-email");
 const { emit } = require("nodemon");
 
@@ -44,7 +44,7 @@ exports.postNotice = async function (req, res) {
 exports.getNotices = async function(req, res) {
 	// 추후에 jwt 추가
 	
-	const resultResponse = await noticeService.getNotice();
+	const resultResponse = await noticeProvider.getNotices();
 	return res.send(resultResponse);
 }
 

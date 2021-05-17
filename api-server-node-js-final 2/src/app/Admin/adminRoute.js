@@ -3,5 +3,5 @@ module.exports = function(app) {
     const jwtMiddleware = require('../../../config/jwtMiddleware');
 
     // 관리자 로그인 API
-    app.post('/app/admin/login', admin.adminLogin);
+    app.post('/admin/login', admin.adminLogin);
 }

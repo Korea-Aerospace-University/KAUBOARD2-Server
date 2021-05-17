@@ -9,7 +9,7 @@ const {emit} = require("nodemon");
 
 /*
     API Name: 관리자 로그인 API
-    [POST] /app/admin/login
+    [POST] /admin/login
     body: adminEmail, password
 */
 exports.adminLogin = async function(req, res) {
