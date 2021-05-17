@@ -31,7 +31,7 @@ exports.adminSignIn = async function (adminEmail, password) {
         const passwordRows = await adminProvider.passwordCheck(checkPasswordParams);
 
         // 비밀번호 존재 x
-        if (passwordRows.length < 1) {
+        if (passwordRows[0].length < 1) {
             return errResponse(baseResponse.SIGNIN_PASSWORD_WRONG);
         }
 
