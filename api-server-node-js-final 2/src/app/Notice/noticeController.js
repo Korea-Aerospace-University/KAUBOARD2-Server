@@ -7,8 +7,21 @@ const regexEmail = require("regex-email");
 const { emit } = require("nodemon");
 
 /**
+ * API Name : 공지 등록 페이지 불러오기
+ * [GET] /notices/main
+ */
+exports.getSubmitPage = (req, res, next) => {
+  res.sendFile(
+    "api-server-node-js-final 2/statics/html/home_notice_upload.html",
+    {
+      root: "../",
+    }
+  );
+};
+
+/**
  * API Name : 공지 등록 API
- * [POST] /app/notices
+ * [POST] /notices
  */
 exports.postNotice = async function (req, res) {
   /**
