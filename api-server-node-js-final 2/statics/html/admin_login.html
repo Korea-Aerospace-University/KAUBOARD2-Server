@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADMIN LOGIN</title>
+    <link rel="stylesheet" type='text/css' href="/css/admin_login.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+
+    <div class="main">
+      <h3>관리자 로그인</h3>
+        <form method="POST" class="form">
+            <div><input type="text" name="id" id="id" placeholder="아이디" size="50"></div>
+            <div><input type="text" name="password" id="password" placeholder="비밀번호" size="50"></div>
+            <input type="buttom" value="Submit" id='submit' onclick="submit_notice();">
+        </form>
+    </div>
+    <div class="currentMessage">
+        
+    </div>
+    
+</body>
+<script src='../js/home_notice_upload.js'></script>
+</html>
