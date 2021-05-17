@@ -1,5 +1,4 @@
 function submit_notice() {
-  alert(document.getElementById("title").value);
   var formData = $(".form").serialize();
   $.ajax({
     url: "../notices",
