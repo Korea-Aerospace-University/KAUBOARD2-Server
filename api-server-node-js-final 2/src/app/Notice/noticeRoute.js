@@ -3,7 +3,7 @@ module.exports = function (app) {
   const jwtMiddleware = require("../../../config/jwtMiddleware");
 
   //공지 등록 페이지
-  app.get("/notices/main", notice.getSubmitPage);
+  app.get("/view/notices", notice.getSubmitPage);
 
   // 1. 공지 등록 API
   app.post("/notices", notice.postNotice);

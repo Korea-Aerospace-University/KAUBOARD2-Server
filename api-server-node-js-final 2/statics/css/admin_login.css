@@ -1,0 +1,29 @@
+* {
+  box-sizing: border-box;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.form {
+  margin-top: 100px;
+}
+
+.form #submit,
+#register {
+  margin-top: 20px;
+  border: none;
+  height: 40px;
+  width: 90px;
+  font-size: 20px;
+}
+
+.form .input {
+  margin-bottom: 20px;
+  height: 40px;
+  font-size: 15px;
+}
+
+.form input:hover {
+  background-color: #aaa;
+  cursor: pointer;
+}
