@@ -12,19 +12,19 @@ const { emit } = require("nodemon");
  * [GET] /admin/main
  */
 exports.getAdminLoginPage = (req, res, next) => {
-  res.sendFile("api-server-node-js-final 2/statics/html/admin_login.html", {
-    root: "../",
-  });
+    res.sendFile("api-server-node-js-final 2/statics/html/admin_login.html", {
+        root: "../",
+    });
 };
 
 /**
- * 관리자 로그인 페이지 불러오기
+ * 관리자 회원가입 페이지 불러오기
  * [GET] /admin/main
  */
 exports.getAdminRegisterPage = (req, res, next) => {
-  res.sendFile("api-server-node-js-final 2/statics/html/admin_register.html", {
-    root: "../",
-  });
+    res.sendFile("api-server-node-js-final 2/statics/html/admin_register.html", {
+        root: "../",
+    });
 };
 
 /*
@@ -33,11 +33,29 @@ exports.getAdminRegisterPage = (req, res, next) => {
     body: adminEmail, password
 */
 exports.adminLogin = async function (req, res) {
-  const { adminEmail, password } = req.body;
+    const { adminEmail, password } = req.body;
 
-  // TODO: 형식적 validation 추가하기
+    // validation
+    if (!adminEmail) {
+        return res.send(response(baseResponse.SIGNIN_EMAIL_EMPTY));
+    } else if (!password) {
+        return res.send(response(baseResponse.SIGNIN_PASSWORD_EMPTY));
+    }
 
-  const siginInResponse = await adminService.adminSignIn(adminEmail, password);
+    if (!regexEmail.test(adminEmail)) {
+        return res.send(response(baseResponse.SIGNIN_EMAIL_ERROR_TYPE));
+    }
 
-  return res.send(siginInResponse);
+    const siginInResponse = await adminService.adminSignIn(adminEmail, password);
+
+    return res.send(siginInResponse);
 };
+
+/*
+    API Name: 관리자 회원가입 API
+    [POST] /admin
+    body: adminName, adminEmail, password
+*/
+exports.postAdmin = async function(req, res) {
+    const 
+}
