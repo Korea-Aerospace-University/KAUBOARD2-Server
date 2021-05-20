@@ -34,8 +34,20 @@ async function selectAdminAccount(connection, adminEmail) {
     return adminAccountRow[0];
 };
 
+// admin 추가
+async function insertAdmin(connection, insertAdminParams) {
+    const insertAdminQuery = `
+                INSERT INTO Admin(adminName, adminEmail, password)
+                VALUES (?, ?, ?);
+                `;
+    const insertAdminRow = await connection.query(insertAdminQuery, insertAdminParams);
+
+    return insertAdminRow;
+}
+
 module.exports = {
     selectAdminEmail,
     selectAdminPassword,
-    selectAdminAccount
+    selectAdminAccount,
+    insertAdmin
 }

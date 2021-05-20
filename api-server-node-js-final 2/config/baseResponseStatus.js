@@ -67,15 +67,15 @@ module.exports = {
         code: 2005,
         message: "비밀번호는 6~20자리를 입력해주세요.",
     },
-    SIGNUP_NICKNAME_EMPTY: {
+    SIGNUP_NAME_EMPTY: {
         isSuccess: false,
         code: 2006,
-        message: "닉네임을 입력 해주세요.",
+        message: "이름을 입력 해주세요.",
     },
-    SIGNUP_NICKNAME_LENGTH: {
+    SIGNUP_PASSWORD_ERROR_TYPE: {
         isSuccess: false,
         code: 2007,
-        message: "닉네임은 최대 20자리를 입력해주세요.",
+        message: "비밀번호는 특수문자, 영문자, 숫자를 포함해주세요"
     },
 
     // SIGNIN
@@ -97,32 +97,30 @@ module.exports = {
     
 
     // Response error
+
+    // SignUp
     SIGNUP_REDUNDANT_EMAIL: {
         isSuccess: false,
         code: 3001,
         message: "중복된 이메일입니다.",
     },
-    SIGNUP_REDUNDANT_NICKNAME: {
-        isSuccess: false,
-        code: 3002,
-        message: "중복된 닉네임입니다.",
-    },
 
+    // SignIn
     SIGNIN_EMAIL_WRONG: {
         isSuccess: false,
-        code: 3003,
+        code: 3002,
         message: "이메일이 잘못되었습니다.",
     },
     SIGNIN_PASSWORD_WRONG: {
         isSuccess: false,
-        code: 3004,
+        code: 3003,
         message: "비밀번호가 잘못되었습니다.",
     },
 
     // Admin
     SIGNIN_INACTIVE_ADMIN: {
         isSuccess: false,
-        code: 3005,
+        code: 3004,
         message: "승인 대기 중인 계정입니다."
     },
 
