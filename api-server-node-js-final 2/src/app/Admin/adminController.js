@@ -3,9 +3,10 @@ const jwtMiddleware = require("../../../config/jwtMiddleware");
 const adminService = require("./adminService");
 const baseResponse = require("../../../config/baseResponseStatus");
 const { response, errResponse } = require("../../../config/response");
-
+const emailCheck = require("../Validation/emailCheck");
 const regexEmail = require("regex-email");
 const { emit } = require("nodemon");
+const { smtpTransport } = require("../../../config/email");
 
 const regexPwd = /^.*(?=^.{6,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
 
@@ -89,3 +90,60 @@ exports.postAdmin = async function(req, res) {
 
     return res.send(signUpResponse);
 }
+
+/*
+    API Name: 이메일 인증 API
+    [POST] /auth/email
+    body: sendEmail
+*/
+exports.authSendEmail = async function(req, res) {
+    /*
+        Body: sendEmail
+    */
+
+    // 메일 인증 링크
+    // const authUrl = 
+
+    const { sendEmail } = req.body;
+
+    // validation
+    const validation = await emailCheck.emailCheck(sendEmail);
+    if (validation.isSuccess == "false") {
+        return res.send(validation);
+    }
+
+    const mailOptions = {
+        from: "harry7231@naver.com",
+        to: sendEmail,
+        subject: "[KAUBOARD] 관리자 인증 관련 이메일입니다.",
+        html: `<a href="http://localhost:3000/auth/admin?authEmail=${sendEmail}">여기를 클릭</a>`
+    }
+
+    const result = smtpTransport.sendMail(mailOptions, (error, responses) => {
+        if (error) {
+            console.log(error);
+            smtpTransport.close();
+            return res.send(response(baseResponse.SERVER_ERROR));
+        } else {
+            smtpTransport.close();
+
+            return res.send(response(baseResponse.SUCCESS, {"authEmail": sendEmail}))
+        }
+    })
+}
+
+/*
+    API Name: 관리자 인증 API
+    [GET] /auth/admin
+*/
+exports.authAdmin = async function(req, res) {
+    /*
+        Query String: authEmail
+    */
+    const authEmail = req.query.authEmail;
+
+    const authAdminResponse = await adminService.updateAdminStatus(authEmail);
+
+    return res.send(authAdminResponse);
+}
+

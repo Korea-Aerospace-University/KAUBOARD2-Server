@@ -45,9 +45,22 @@ async function insertAdmin(connection, insertAdminParams) {
     return insertAdminRow;
 }
 
+// admin status 변경
+async function updateAdminStatus(connection, authEmail) {
+    const updateAdminStatusQuery = `
+                UPDATE Admin
+                Set status = 1
+                WHERE adminEmail = ?;
+                `;
+    const [updateRow] = await connection.query(updateAdminStatusQuery, authEmail);
+
+    return updateRow;
+}
+
 module.exports = {
     selectAdminEmail,
     selectAdminPassword,
     selectAdminAccount,
-    insertAdmin
+    insertAdmin,
+    updateAdminStatus
 }

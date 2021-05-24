@@ -94,8 +94,24 @@ module.exports = {
         code: 2010,
         message: "비밀번호를 입력 해주세요.",
     },
-    
 
+    // Auth
+    AUTH_EMAIL_EMPTY: {
+        isSuccess: false,
+        code: 2011,
+        message: "이메일을 입력해주세요."
+    },
+    AUTH_EMAIL_LENGTH: { 
+        isSuccess: false,
+        code: 2012,
+        message: "이메일은 45자 이내로 입력해주세요."
+    },
+    AUTH_EMAIL_ERRORTYPE: {
+        isSuccess: "false",
+        code: 2013,
+        message: "이메일의 형식을 정확하게 입력해주세요."
+    },
+    
     // Response error
 
     // SignUp

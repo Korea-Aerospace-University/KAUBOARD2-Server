@@ -13,4 +13,10 @@ module.exports = function (app) {
 
     // 관리자 회원가입 API
     app.post("/admin", admin.postAdmin);
+
+    // 이메일 인증 API
+    app.post("/auth/email", admin.authSendEmail);
+
+    // 관리자 인증 API
+    app.get("/auth/admin", admin.authAdmin);
 };

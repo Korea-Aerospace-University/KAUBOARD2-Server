@@ -91,3 +91,18 @@ exports.createAdmin = async function(adminName, adminEmail, password) {
         return errResponse(baseResponse.DB_ERROR);
     }
 }
+
+exports.updateAdminStatus = async function(authEmail) {
+    try {
+        const connection = await pool.getConnection(async (conn) => conn);
+
+        // 관리자 인증 상태 변경
+        const updateResult = await adminDao.updateAdminStatus(connection, authEmail);
+        connection.release();
+
+        return response(baseResponse.SUCCESS);
+    } catch(err) {
+        logger.error(`APP - updateAdminStatus Service error\n: ${err.message}`);
+        return errResponse(baseResponse.DB_ERROR);
+    }
+}
