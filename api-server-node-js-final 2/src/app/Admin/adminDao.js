@@ -34,8 +34,33 @@ async function selectAdminAccount(connection, adminEmail) {
     return adminAccountRow[0];
 };
 
+// admin 추가
+async function insertAdmin(connection, insertAdminParams) {
+    const insertAdminQuery = `
+                INSERT INTO Admin(adminName, adminEmail, password)
+                VALUES (?, ?, ?);
+                `;
+    const insertAdminRow = await connection.query(insertAdminQuery, insertAdminParams);
+
+    return insertAdminRow;
+}
+
+// admin status 변경
+async function updateAdminStatus(connection, authEmail) {
+    const updateAdminStatusQuery = `
+                UPDATE Admin
+                Set status = 1
+                WHERE adminEmail = ?;
+                `;
+    const [updateRow] = await connection.query(updateAdminStatusQuery, authEmail);
+
+    return updateRow;
+}
+
 module.exports = {
     selectAdminEmail,
     selectAdminPassword,
-    selectAdminAccount
+    selectAdminAccount,
+    insertAdmin,
+    updateAdminStatus
 }

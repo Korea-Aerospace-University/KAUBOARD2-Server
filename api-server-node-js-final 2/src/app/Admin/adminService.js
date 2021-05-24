@@ -61,3 +61,48 @@ exports.adminSignIn = async function (adminEmail, password) {
         return errResponse(baseResponse.DB_ERROR);
     }
 }
+
+exports.createAdmin = async function(adminName, adminEmail, password) {
+    try {
+        // 이메일 중복 확인
+        const emailRows = await adminProvider.emailCheck(adminEmail);
+        
+        // 이메일 중복
+        if (emailRows.length > 0) {
+            return errResponse(baseResponse.SIGNUP_REDUNDANT_EMAIL);
+        }
+
+        // 비밀번호 암호화
+        const hashedPassword = await crypto
+            .createHash("sha512")
+            .update(password)
+            .digest("hex");
+        
+        const insertAdminParams = [adminName, adminEmail, hashedPassword];
+
+        const connection = await pool.getConnection(async (conn) => conn);
+
+        const result = await adminDao.insertAdmin(connection, insertAdminParams);
+        connection.release();
+
+        return response(baseResponse.SUCCESS, {insertedAdmin: result[0].insertId});
+    } catch (err) {
+        logger.error(`App - createAdmin Service error\n: ${err.message}`);
+        return errResponse(baseResponse.DB_ERROR);
+    }
+}
+
+exports.updateAdminStatus = async function(authEmail) {
+    try {
+        const connection = await pool.getConnection(async (conn) => conn);
+
+        // 관리자 인증 상태 변경
+        const updateResult = await adminDao.updateAdminStatus(connection, authEmail);
+        connection.release();
+
+        return response(baseResponse.SUCCESS);
+    } catch(err) {
+        logger.error(`APP - updateAdminStatus Service error\n: ${err.message}`);
+        return errResponse(baseResponse.DB_ERROR);
+    }
+}
