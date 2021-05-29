@@ -106,7 +106,7 @@ exports.authSendEmail = async function(req, res) {
 
     // validation
     const validation = await emailCheck.emailCheck(sendEmail);
-    if (validation.isSuccess == "false") {
+    if (validation.isSuccess == false) {
         return res.send(validation);
     }
 

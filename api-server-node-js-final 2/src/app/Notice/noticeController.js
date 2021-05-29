@@ -69,6 +69,12 @@ exports.getKauNotices = async function(req, res) {
         Body: siteFlag, bbsId, pageIndex, bbsAuth
     */ 
     const { siteFlag, bbsId, pageIndex, bbsAuth } = req.body;
+
+    // validation
+    if (!siteFlag || !bbsId || !pageIndex || !bbsAuth) {
+        return res.send(errResponse(baseResponse.KAUNOTICE_BODY_EMPTY));
+    } 
+
     const url = "http://college.kau.ac.kr/web/bbs/bbsListApi.gen";
     const data = {
         siteFlag: siteFlag,
