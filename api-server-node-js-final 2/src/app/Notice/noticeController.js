@@ -62,20 +62,30 @@ exports.getNotices = async function(req, res) {
 
 /*
     API Name: 학교 공지 조회 API
-    [POST] /kaunotices
+    [POST] /kaunotices?category=
 */
 exports.getKauNotices = async function(req, res) {
     /*
+        Query String: category
         Body: siteFlag, bbsId, pageIndex, bbsAuth
     */ 
+    const category = req.query.category;
     const { siteFlag, bbsId, pageIndex, bbsAuth } = req.body;
 
     // validation
+    if (!category) {
+        return res.send(errResponse(baseResponse.KAUNOTICE_CATEGORY_EMPTY));
+    } else if (category != 'department' && category != 'general') {
+        return res.send(errResponse(baseResponse.KAUNOTICE_CATEGORY_ERROR));
+    }
+
     if (!siteFlag || !bbsId || !pageIndex || !bbsAuth) {
         return res.send(errResponse(baseResponse.KAUNOTICE_BODY_EMPTY));
     } 
 
-    const url = "http://college.kau.ac.kr/web/bbs/bbsListApi.gen";
+    // category에 따라서 전송 url 달라짐
+    const url = category == 'department' ? "http://college.kau.ac.kr/web/bbs/bbsListApi.gen" : "http://www.hangkong.ac.kr/web/bbs/bbsListApi.gen";
+
     const data = {
         siteFlag: siteFlag,
         bbsId: bbsId,
@@ -83,6 +93,7 @@ exports.getKauNotices = async function(req, res) {
         bbsAuth: bbsAuth
     };
 
+    // 공지 보내주는 api와 연결
     axios.post(url, data).then(rsp => {
         var noticeList = [];
         for (i of rsp.data.resultList) {

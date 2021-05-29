@@ -128,6 +128,16 @@ module.exports = {
         code: 2020,
         message: "body를 입력해주세요."
     },
+    KAUNOTICE_CATEGORY_EMPTY: {
+        isSuccess: false,
+        code: 2021, 
+        message: "category를 입력해주세요."
+    },
+    KAUNOTICE_CATEGORY_ERROR: {
+        isSuccess: false,
+        code: 2022,
+        message: "category를 확인해주세요."
+    },
     
     // Response error
 
