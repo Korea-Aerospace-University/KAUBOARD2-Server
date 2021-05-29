@@ -7,6 +7,7 @@ const emailCheck = require("../Validation/emailCheck");
 const regexEmail = require("regex-email");
 const { emit } = require("nodemon");
 const { smtpTransport } = require("../../../config/email");
+const { mailOptions } = require('../../../config/email');
 
 const regexPwd = /^.*(?=^.{6,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
 
@@ -101,9 +102,6 @@ exports.authSendEmail = async function(req, res) {
         Body: sendEmail
     */
 
-    // 메일 인증 링크
-    // const authUrl = 
-
     const { sendEmail } = req.body;
 
     // validation
@@ -114,9 +112,11 @@ exports.authSendEmail = async function(req, res) {
 
     const mailOptions = {
         from: "harry7231@naver.com",
-        to: sendEmail,
-        subject: "[KAUBOARD] 관리자 인증 관련 이메일입니다.",
-        html: `<a href="http://localhost:3000/auth/admin?authEmail=${sendEmail}">여기를 클릭</a>`
+        // 조민성님 이메일
+        to: "roybatty0601@kau.kr",
+        subject: "[KAUBOARD] 관리자 인증 요청 이메일입니다.",
+        // 추후에 관리자 페이지 등록
+        html: `<a href="http://52.79.130.113/auth/admin?authEmail=${sendEmail}">${sendEmail}</a>`
     }
 
     const result = smtpTransport.sendMail(mailOptions, (error, responses) => {
