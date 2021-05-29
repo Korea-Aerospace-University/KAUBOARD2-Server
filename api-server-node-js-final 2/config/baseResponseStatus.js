@@ -107,20 +107,26 @@ module.exports = {
         message: "이메일은 45자 이내로 입력해주세요."
     },
     AUTH_EMAIL_ERRORTYPE: {
-        isSuccess: "false",
+        isSuccess: false,
         code: 2017,
         message: "이메일의 형식을 정확하게 입력해주세요."
     },
 
     NOTICE_TYPE_EMPTY: {
-        isSuccess: "false",
+        isSuccess: false,
         code: 2018,
         message: "type을 입력해주세요."
     },
     NOTICE_TYPE_ERROR: {
-        isSuccess: "false",
+        isSuccess: false,
         code: 2019,
         message: "잘못된 type입니다."
+    },
+
+    KAUNOTICE_BODY_EMPTY: {
+        isSuccess: false, 
+        code: 2020,
+        message: "body를 입력해주세요."
     },
     
     // Response error
