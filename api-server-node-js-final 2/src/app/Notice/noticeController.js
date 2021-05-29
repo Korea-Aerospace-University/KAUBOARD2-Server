@@ -4,7 +4,8 @@ const baseResponse = require("../../../config/baseResponseStatus");
 const { response, errResponse } = require("../../../config/response");
 const noticeProvider = require("./noticeProvider");
 const regexEmail = require("regex-email");
-const { emit } = require("nodemon");
+const axios = require("axios");
+const { logger } = require("../../../config/winston");
 
 /**
  * API Name : 공지 등록 페이지 불러오기
@@ -55,9 +56,41 @@ exports.postNotice = async function (req, res) {
 	[GET] /app/notices
 */
 exports.getNotices = async function(req, res) {
-	// 추후에 jwt 추가
-	
 	const resultResponse = await noticeProvider.getNotices();
 	return res.send(resultResponse);
 }
 
+/*
+    API Name: 학교 공지 조회 API
+    [POST] /kaunotices
+*/
+exports.getKauNotices = async function(req, res) {
+    /*
+        Body: siteFlag, bbsId, pageIndex, bbsAuth
+    */ 
+    const { siteFlag, bbsId, pageIndex, bbsAuth } = req.body;
+    const url = "http://college.kau.ac.kr/web/bbs/bbsListApi.gen";
+    const data = {
+        siteFlag: siteFlag,
+        bbsId: bbsId,
+        pageIndex: pageIndex,
+        bbsAuth: bbsAuth
+    };
+
+    axios.post(url, data).then(rsp => {
+        var noticeList = [];
+        for (i of rsp.data.resultList) {
+            notice = {
+                idx: i.nttId,
+                createdAt: i.frstRegisterPnttm,
+                title: i.nttSj,
+                contents: i.nttCn
+            }
+            noticeList.push(notice)
+        }
+        res.send(response(baseResponse.SUCCESS, noticeList))
+    }).catch(function(err) {
+        logger.error(`GET KAU NOTICES ERROR\n: ${err.message}`);
+        res.send(response(baseResponse.SERVER_ERROR));
+    }) 
+}

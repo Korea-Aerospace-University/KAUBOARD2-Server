@@ -44,72 +44,83 @@ module.exports = {
     // SIGNUP
     SIGNUP_EMAIL_EMPTY: {
         isSuccess: false,
-        code: 2001,
+        code: 2005,
         message: "이메일을 입력해주세요",
     },
     SIGNUP_EMAIL_LENGTH: {
         isSuccess: false,
-        code: 2002,
+        code: 2006,
         message: "이메일은 45자리 미만으로 입력해주세요.",
     },
     SIGNUP_EMAIL_ERROR_TYPE: {
         isSuccess: false,
-        code: 2003,
+        code: 2007,
         message: "이메일을 형식을 정확하게 입력해주세요.",
     },
     SIGNUP_PASSWORD_EMPTY: {
         isSuccess: false,
-        code: 2004,
+        code: 2008,
         message: "비밀번호를 입력 해주세요.",
     },
     SIGNUP_PASSWORD_LENGTH: {
         isSuccess: false,
-        code: 2005,
+        code: 2009,
         message: "비밀번호는 6~20자리를 입력해주세요.",
     },
     SIGNUP_NAME_EMPTY: {
         isSuccess: false,
-        code: 2006,
+        code: 2010,
         message: "이름을 입력 해주세요.",
     },
     SIGNUP_PASSWORD_ERROR_TYPE: {
         isSuccess: false,
-        code: 2007,
+        code: 2011,
         message: "비밀번호는 특수문자, 영문자, 숫자를 포함해주세요"
     },
 
     // SIGNIN
     SIGNIN_EMAIL_EMPTY: {
         isSuccess: false,
-        code: 2008,
+        code: 2012,
         message: "이메일을 입력해주세요",
     },
     SIGNIN_EMAIL_ERROR_TYPE: {
         isSuccess: false,
-        code: 2009,
+        code: 2013,
         message: "이메일의 형식을 정확하게 입력해주세요.",
     },
     SIGNIN_PASSWORD_EMPTY: {
         isSuccess: false,
-        code: 2010,
+        code: 2014,
         message: "비밀번호를 입력 해주세요.",
     },
 
     // Auth
     AUTH_EMAIL_EMPTY: {
         isSuccess: false,
-        code: 2011,
+        code: 2015,
         message: "이메일을 입력해주세요."
     },
     AUTH_EMAIL_LENGTH: { 
         isSuccess: false,
-        code: 2012,
+        code: 2016,
         message: "이메일은 45자 이내로 입력해주세요."
     },
     AUTH_EMAIL_ERRORTYPE: {
         isSuccess: "false",
-        code: 2013,
+        code: 2017,
         message: "이메일의 형식을 정확하게 입력해주세요."
+    },
+
+    NOTICE_TYPE_EMPTY: {
+        isSuccess: "false",
+        code: 2018,
+        message: "type을 입력해주세요."
+    },
+    NOTICE_TYPE_ERROR: {
+        isSuccess: "false",
+        code: 2019,
+        message: "잘못된 type입니다."
     },
     
     // Response error
