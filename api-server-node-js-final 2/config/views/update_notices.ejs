@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPDATE NOTICE</title>
+    <link rel="stylesheet" type='text/css' href="notice.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+
+    <div class="main">
+      <h3>공지 수정</h3>
+        <form method="POST" action="../../../notices/<%= data.result.idx %>/update" class="form">
+            <div><input type="text" name="title" id="title" placeholder="제목" size="50" value="<%= data.result.title %>"></div>
+            <textarea id="contents" name="contents" cols="70" rows="10" placeholder="내용"><%= data.result.contents %></textarea><br>
+            <input type="checkbox" id="pinned" name="pinned" value="<%= data.result.pinned %>">상단고정
+            <input type="checkbox" id="status" name="status" value="<%= data.result.status %>">공개여부
+            <input type="hidden" name="noticeIdx" value="<%= data.result.idx %>">
+            <div><input type="submit" value="Submit" id='submit'></div>
+        </form>
+    </div>
+    <div class="currentMessage">
+    </div>
+
+    <script>
+    
+        if($("#pinned").val()==1){
+            $("#pinned").prop("checked", 1);
+            $("#pinned").prop("value", 1);
+        }
+        else{
+            $("#pinneds").prop("checked", 0);
+            $("#pinned").prop("value", 1);
+        }
+        if($("#status").val()==1){
+            $("#status").prop("checked", 1);
+            $("#pinned").prop("value", 1);
+        }
+        else{
+            $("#status").prop("checked", 0);
+            $("#pinned").prop("value", 1);
+        }
+        
+    </script>
+    
+</body>
+</html>

@@ -56,8 +56,81 @@ exports.postNotice = async function (req, res) {
 	[GET] /app/notices
 */
 exports.getNotices = async function(req, res) {
+
+    //관리자용 공지조회 페이지
+    if(1) { //쿠키로 대체할 부분
+        const resultResponse = await noticeProvider.getAllNotices();
+        return res.render('get_notices', {data : resultResponse});
+    }
+
+    //학생용 공지조회 API
 	const resultResponse = await noticeProvider.getNotices();
 	return res.send(resultResponse);
+}
+
+/*
+	API Name : 공지 1개 조회 API
+	[GET] /app/notices
+*/
+exports.getNoticeById = async function(req, res) {
+
+    const noticeIdx = req.params.noticeIdx;
+	const resultResponse = await noticeProvider.getNoticeById(noticeIdx);
+	return res.render('update_notices', {data : resultResponse});
+}
+
+/*
+	API Name : 공지 수정 API
+	[GET] /notices
+*/
+exports.patchNotice = async function(req, res) {
+
+	/**
+	 * Headers: x-access-token
+	 * Body: title, contents, pinned, status
+	 */
+     var adminIdx = 1; //jwt로 변경하기
+     const noticeIdx=req.params.noticeIdx
+     const { title, contents, status } = req.body;
+     var pinned = req.body.pinned
+ 
+     // 빈 값 체크
+     if (!title) return res.send(response(baseResponse.NOTICE_TITLE_EMPTY));
+     if (!contents) return res.send(response(baseResponse.NOTICE_CONTENTS_EMPTY));
+
+     if(pinned==1)
+        pinned='Y'
+     else
+        pinned='N'
+ 
+     // 길이 체크
+     if (title.length > 30)
+         return res.send(response(baseResponse.NOTICE_TITLE_LENGTH));
+     if (contents.length > 300)
+         return res.send(response(baseResponse.NOTICE_CONTENTS_LENGTH));
+ 
+     const createNoticeResponse = await noticeService.updateNotice(
+        noticeIdx,
+         title,
+         contents,
+         pinned,
+         status
+     );
+     res.write("<script>alert('success')</script>");
+     res.write("<script>window.location=\"../../view/notices\"</script>");
+ };
+
+ /*
+	API Name : 공지 삭제
+	[GET] /app/notices
+*/
+exports.deleteNotice = async function(req, res) {
+
+    const noticeIdx = req.params.noticeIdx;
+	const resultResponse = await noticeService.deleteNotice(noticeIdx);
+	res.write("<script>alert('success')</script>");
+    res.write("<script>window.location=\"../../view/notices\"</script>");
+    return
 }
 
 /*

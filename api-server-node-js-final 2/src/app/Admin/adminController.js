@@ -7,7 +7,6 @@ const emailCheck = require("../Validation/emailCheck");
 const regexEmail = require("regex-email");
 const { emit } = require("nodemon");
 const { smtpTransport } = require("../../../config/email");
-const { mailOptions } = require('../../../config/email');
 
 const regexPwd = /^.*(?=^.{6,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
 

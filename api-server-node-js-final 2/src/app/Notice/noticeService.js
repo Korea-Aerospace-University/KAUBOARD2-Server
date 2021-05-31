@@ -31,3 +31,37 @@ exports.createNotice = async function (adminIdx, title, contents) {
     return errResponse(baseResponse.DB_ERROR);
   }
 };
+
+
+exports.updateNotice = async function (noticeIdx, title, contents, pinned, status) {
+  try {
+    const connection = await pool.getConnection(async (conn) => conn);
+    const updateNoticeParams = [title, contents, pinned, status, noticeIdx];
+
+    const noticeIdResult = await noticeDao.updateNotice(
+      connection,
+      updateNoticeParams
+    );
+    connection.release();
+    return response(baseResponse.SUCCESS);
+  } catch (err) {
+    logger.error(`App - createNotice Service error\n: ${err.message}`);
+    return errResponse(baseResponse.DB_ERROR);
+  }
+};
+//공지 삭제
+exports.deleteNotice = async function (noticeIdx) {
+  try {
+    const connection = await pool.getConnection(async (conn) => conn);
+  
+    const noticeIdResult = await noticeDao.deleteNotice(
+      connection,
+      noticeIdx
+    );
+    connection.release();
+    return response(baseResponse.SUCCESS);
+  } catch (err) {
+    logger.error(`App - createNotice Service error\n: ${err.message}`);
+    return errResponse(baseResponse.DB_ERROR);
+  }
+};
