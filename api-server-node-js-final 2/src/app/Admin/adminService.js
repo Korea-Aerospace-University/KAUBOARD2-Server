@@ -54,7 +54,6 @@ exports.adminSignIn = async function (adminEmail, password) {
                 subject: "adminInfo",
             } // 유효기간: 365일
         );
-
         return response(baseResponse.SUCCESS, {'adminIdx': adminInfoRows[0].idx, 'jwt': token});
     } catch(err) {
         logger.error(`APP - adminSignIn Service error\n: ${err.message}`);

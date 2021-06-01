@@ -7,7 +7,7 @@ const baseResponse = require("./baseResponseStatus");
 
 const jwtMiddleware = (req, res, next) => {
     // read the token from header or url
-    const token = req.headers['x-access-token'] || req.query.token;
+    const token = req.cookies['x-access-token'] || req.query.token;
     // token does not exist
     if(!token) {
         return res.send(errResponse(baseResponse.TOKEN_EMPTY))

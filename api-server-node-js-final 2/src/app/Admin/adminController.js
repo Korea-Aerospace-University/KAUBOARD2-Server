@@ -11,8 +11,19 @@ const { smtpTransport } = require("../../../config/email");
 const regexPwd = /^.*(?=^.{6,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
 
 /**
+ * 관리자 페이지 불러오기
+ * [GET] view/admin
+ */
+ exports.getAdminPage = (req, res, next) => {
+    res.sendFile("api-server-node-js-final 2/statics/html/admin_home.html", {
+        root: "../",
+    });
+};
+
+
+/**
  * 관리자 로그인 페이지 불러오기
- * [GET] /admin/main
+ * [GET] view/admin/login
  */
 exports.getAdminLoginPage = (req, res, next) => {
     res.sendFile("api-server-node-js-final 2/statics/html/admin_login.html", {
@@ -22,7 +33,7 @@ exports.getAdminLoginPage = (req, res, next) => {
 
 /**
  * 관리자 회원가입 페이지 불러오기
- * [GET] /admin/main
+ * [GET] view/admin/register
  */
 exports.getAdminRegisterPage = (req, res, next) => {
     res.sendFile("api-server-node-js-final 2/statics/html/admin_register.html", {
@@ -51,7 +62,16 @@ exports.adminLogin = async function (req, res) {
 
     const siginInResponse = await adminService.adminSignIn(adminEmail, password);
 
-    return res.send(siginInResponse);
+    //실패
+    if(siginInResponse.code!==1000){
+        res.write("<script>alert('"+siginInResponse.message.toString()+"')</script>");
+        res.write("<script>window.location=\"../../view/notices\"</script>");
+    }
+    else{
+        res.cookie('x-access-token', siginInResponse.result.jwt)
+    
+       return res.redirect("../view/admin")
+    }
 };
 
 /*

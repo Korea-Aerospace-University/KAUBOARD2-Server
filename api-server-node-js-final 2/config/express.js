@@ -2,12 +2,14 @@ const express = require("express");
 const compression = require("compression");
 const methodOverride = require("method-override");
 var cors = require("cors");
+var cookieParser = require('cookie-parser');
 module.exports = function () {
     const app = express();
 
     app.use(compression());
 
     app.use(express.json());
+    app.use(cookieParser());
 
     //ejs
     app.set('view engine', 'ejs');

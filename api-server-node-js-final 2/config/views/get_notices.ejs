@@ -18,7 +18,7 @@
         <th>공개</th>
         <th>수정</th>
         <th>삭제</th>
-        <% for(var i = 0; i<5; i++){ %>
+        <% for(var i = 0; i<data.result.length; i++){ %>
             <tr>
                 <td><%= i+1 %></td>
                 <td><%= data.result[i].title %></td>
