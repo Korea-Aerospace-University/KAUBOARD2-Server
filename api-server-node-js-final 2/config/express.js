@@ -28,6 +28,7 @@ module.exports = function () {
     require("../src/app/User/userRoute")(app);
     require("../src/app/Notice/noticeRoute")(app);
     require("../src/app/Admin/adminRoute")(app);
+    require("../src/app/Virus/virusRoute")(app);
 
     return app;
 };
