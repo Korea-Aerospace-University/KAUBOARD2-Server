@@ -24,6 +24,7 @@ module.exports = function () {
     // app.use(express.static(process.cwd() + '/public'));
 
     /* 채팅 */
+    const server = require("http").Server(app);
     const io = require("socket.io")(server, {
         cors: {
           origin: "*",
