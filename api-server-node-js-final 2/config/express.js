@@ -23,7 +23,28 @@ module.exports = function () {
     app.use(express.static("statics"));
     // app.use(express.static(process.cwd() + '/public'));
 
-    /* App (Android, iOS) */
+    /* 채팅 */
+    const io = require("socket.io")(server, {
+        cors: {
+          origin: "*",
+          methods: ["GET", "POST"],
+        },
+      });
+      const botName = "카우랜드 봇";
+
+      //////////////////
+      io.on("connection", (socket) => {
+        const { id } = socket.client;
+        socket.emit(
+          "message",
+          formatMessage(botName, "카우랜드에 오신 것을 환영합니다!")
+        );
+      
+        socket.on("sendMessage", (data) => {
+          io.emit("message", formatMessage(data.name, data.msg));
+        });
+      });
+
     // TODO: 도메인을 추가할 경우 이곳에 Route를 추가하세요.
     require("../src/app/User/userRoute")(app);
     require("../src/app/Notice/noticeRoute")(app);
