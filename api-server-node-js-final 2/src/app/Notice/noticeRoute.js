@@ -3,7 +3,7 @@ module.exports = function (app) {
   const jwtMiddleware = require("../../../config/jwtMiddleware");
 
   // 카우보드 전체공지 조회 페이지
-  app.get("/view/notices", jwtMiddleware, notice.getNotices);
+  app.get("/view/notices", jwtMiddleware, notice.getAllNotices);
 
   // 카우보드 공지 등록 페이지
   app.get("/view/notices/register", jwtMiddleware, notice.getSubmitPage);
