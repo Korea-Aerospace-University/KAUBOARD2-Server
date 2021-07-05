@@ -52,16 +52,21 @@ exports.postNotice = async function (req, res) {
 };
 
 /*
-	API Name : 공지 조회 API
-	[GET] /app/notices
+	API Name : 전체공지 조회 API
 */
-exports.getNotices = async function(req, res) {
+exports.getAllNotices = async function(req, res) {
 
     //관리자용 공지조회 페이지
-    if(1) { //쿠키로 대체할 부분
-        const resultResponse = await noticeProvider.getAllNotices();
-        return res.render('get_notices', {data : resultResponse});
-    }
+    //jwt 추가
+    const resultResponse = await noticeProvider.getAllNotices();
+    return res.render('get_notices', {data : resultResponse});
+}
+
+/*
+	API Name : 공지 조회 API
+	[GET] /notices
+*/
+exports.getNotices = async function(req, res) {
 
     //학생용 공지조회 API
 	const resultResponse = await noticeProvider.getNotices();
@@ -70,7 +75,7 @@ exports.getNotices = async function(req, res) {
 
 /*
 	API Name : 공지 1개 조회 API
-	[GET] /app/notices
+	[GET] /notices
 */
 exports.getNoticeById = async function(req, res) {
 
@@ -122,7 +127,7 @@ exports.patchNotice = async function(req, res) {
 
  /*
 	API Name : 공지 삭제
-	[GET] /app/notices
+	[GET] /notices
 */
 exports.deleteNotice = async function(req, res) {
 
