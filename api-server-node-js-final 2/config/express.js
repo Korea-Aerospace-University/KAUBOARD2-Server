@@ -23,6 +23,8 @@ module.exports = function () {
     app.use(express.static("statics"));
 
 
+    var server = app.listen(3000)
+    
     /* 채팅 */
     const io = require("socket.io")(server, {
         cors: {
@@ -51,6 +53,6 @@ module.exports = function () {
     require("../src/app/Admin/adminRoute")(app);
     require("../src/app/Virus/virusRoute")(app);
 
-    var server = app.listen(3000)
+    
     return app;
 };
