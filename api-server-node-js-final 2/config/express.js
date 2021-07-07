@@ -26,7 +26,14 @@ module.exports = function () {
 
 
     //var server = app.listen(3000)
-    const httpServer = http.createServer(app)
+    const httpServer = http.createServer(app, {
+        cors: {
+          origin: "*",
+          methods: ["GET", "POST"],
+        origin: "*",
+        methods: ["GET", "POST"],
+        },
+      })
 
     /* 채팅 */
     const io = require("socket.io")(httpServer)
