@@ -17,6 +17,8 @@ module.exports = function () {
       cors: {
           origin: "*",
           methods: ["GET", "POST"],
+          allowedHeaders: ["my-custom-header"],
+          credentials: true
       },
     })
   const botName = "카우랜드 봇";
