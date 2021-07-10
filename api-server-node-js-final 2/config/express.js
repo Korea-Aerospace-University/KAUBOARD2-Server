@@ -3,21 +3,22 @@ const compression = require("compression");
 const methodOverride = require("method-override");
 var cors = require("cors");
 var cookieParser = require('cookie-parser');
+const formatMessage = require("../utils/messages");
 const http = require('http');
 module.exports = function () {
 
     const app = express();
 
     //var server = app.listen(3000)
-    const httpServer = http.createServer(app, {
-        cors: {
-            origin: "*",
-            methods: ["GET", "POST"],
-        },
-      })
+    const httpServer = http.createServer(app)
 
     /* 채팅 */
-    const io = require("socket.io")(httpServer)
+    const io = require("socket.io")(httpServer, {
+      cors: {
+          origin: "*",
+          methods: ["GET", "POST"],
+      },
+    })
   const botName = "카우랜드 봇";
 
   //////////////////
@@ -55,6 +56,6 @@ module.exports = function () {
     require("../src/app/Admin/adminRoute")(app);
     require("../src/app/Virus/virusRoute")(app);
 
-    httpServer.listen(3000)
+    httpServer.listen(3001)
     return app;
 };
