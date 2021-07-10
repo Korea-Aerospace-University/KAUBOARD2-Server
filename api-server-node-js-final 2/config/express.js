@@ -8,6 +8,7 @@ const http = require('http');
 module.exports = function () {
 
     const app = express();
+    app.use(cors());
 
     //var server = app.listen(3000)
     const httpServer = http.createServer(app)
@@ -49,7 +50,7 @@ module.exports = function () {
 
     app.use(methodOverride());
 
-    app.use(cors());
+  
     app.use(express.static("statics"));
 
     // TODO: 도메인을 추가할 경우 이곳에 Route를 추가하세요.
