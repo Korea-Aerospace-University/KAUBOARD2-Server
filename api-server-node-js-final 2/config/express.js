@@ -56,6 +56,6 @@ module.exports = function () {
     require("../src/app/Admin/adminRoute")(app);
     require("../src/app/Virus/virusRoute")(app);
 
-    httpServer.listen(3001)
+    httpServer.listen(3000)
     return app;
 };
