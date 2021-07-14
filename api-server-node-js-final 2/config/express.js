@@ -8,33 +8,13 @@ const http = require('http');
 module.exports = function () {
 
     const app = express();
-    app.use(cors());
+  
 
     //var server = app.listen(3000)
     const httpServer = http.createServer(app)
 
-    /* 채팅 */
-    const io = require("socket.io")(httpServer, {
-      cors: {
-          origin: "*",
-          methods: ["GET", "POST"],
-      },
-    })
-  const botName = "카우랜드 봇";
 
-  //////////////////
-  io.on("connection", (socket) => {
-    const { id } = socket.client;
-    socket.emit(
-      "message",
-      formatMessage(botName, "카우랜드에 오신 것을 환영합니다!")
-    );
-  
-    socket.on("sendMessage", (data) => {c
-      io.emit("message", formatMessage(data.name, data.msg));
-    });
-  });
-
+    app.use(cors());
     app.use(compression());
 
     app.use(express.json());
@@ -56,6 +36,28 @@ module.exports = function () {
     require("../src/app/Notice/noticeRoute")(app);
     require("../src/app/Admin/adminRoute")(app);
     require("../src/app/Virus/virusRoute")(app);
+
+        /* 채팅 */
+        const io = require("socket.io")(httpServer, {
+          cors: {
+              origin: "*",
+              methods: ["GET", "POST"],
+          },
+        })
+      const botName = "카우랜드 봇";
+    
+      //////////////////
+      io.on("connection", (socket) => {
+        const { id } = socket.client;
+        socket.emit(
+          "message",
+          formatMessage(botName, "카우랜드에 오신 것을 환영합니다!")
+        );
+      
+        socket.on("sendMessage", (data) => {c
+          io.emit("message", formatMessage(data.name, data.msg));
+        });
+      });
 
     httpServer.listen(3000)
     return app;
