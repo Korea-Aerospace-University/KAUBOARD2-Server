@@ -54,7 +54,7 @@ module.exports = function () {
           formatMessage(botName, "카우랜드에 오신 것을 환영합니다!")
         );
       
-        socket.on("sendMessage", (data) => {c
+        socket.on("sendMessage", (data) => {
           io.emit("message", formatMessage(data.name, data.msg));
         });
       });
