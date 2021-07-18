@@ -7,6 +7,7 @@ const emailCheck = require("../Validation/emailCheck");
 const regexEmail = require("regex-email");
 const { emit } = require("nodemon");
 const { smtpTransport } = require("../../../config/email");
+const { default: axios } = require("axios");
 
 const regexPwd = /^.*(?=^.{6,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
 
@@ -166,3 +167,17 @@ exports.authAdmin = async function(req, res) {
     return res.send(authAdminResponse);
 }
 
+
+exports.test = async function(req, res) {
+    /*
+        Body: url
+    */
+    const url = req.body;
+
+    const result = axios.get(url).then(e => {
+        return response(baseResponse.SUCCESS, e);
+    }).catch(err => {
+        console.log(`${err.message}`);
+        return errResponse(baseResponse.DB_ERROR)
+    })
+}

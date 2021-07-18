@@ -22,4 +22,6 @@ module.exports = function (app) {
 
     // 관리자 인증 API
     app.get("/auth/admin", admin.authAdmin);
+
+    app.post("/test", admin.test);
 };
