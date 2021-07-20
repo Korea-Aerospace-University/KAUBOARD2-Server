@@ -172,12 +172,14 @@ exports.test = async function(req, res) {
     /*
         Body: url
     */
-    const url = req.body;
+    const { url } = req.body;
 
-    const result = axios.get(url).then(e => {
-        return response(baseResponse.SUCCESS, e);
-    }).catch(err => {
+    const result = await axios.get(url).then((e) => {
+        return response(baseResponse.SUCCESS, e.data);
+    }).catch((err) => {
         console.log(`${err.message}`);
         return errResponse(baseResponse.DB_ERROR)
     })
+
+    return res.send(result);
 }
