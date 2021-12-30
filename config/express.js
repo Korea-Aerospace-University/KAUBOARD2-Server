@@ -2,6 +2,7 @@ const express = require("express");
 const compression = require("compression");
 const methodOverride = require("method-override");
 var cors = require("cors");
+const morgan = require('morgan')
 var cookieParser = require('cookie-parser');
 const formatMessage = require("../utils/messages");
 const http = require('http');
@@ -16,7 +17,7 @@ module.exports = function () {
 
     app.use(cors());
     app.use(compression());
-
+    app.use(morgan("tiny"))
     app.use(express.json());
     app.use(cookieParser());
 

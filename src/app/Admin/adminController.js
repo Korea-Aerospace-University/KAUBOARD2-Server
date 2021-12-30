@@ -6,7 +6,6 @@ const { response, errResponse } = require("../../../config/response");
 const emailCheck = require("../Validation/emailCheck");
 const regexEmail = require("regex-email");
 const { emit } = require("nodemon");
-const { smtpTransport } = require("../../../config/email");
 const { default: axios } = require("axios");
 
 const regexPwd = /^.*(?=^.{6,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
@@ -135,21 +134,9 @@ exports.authSendEmail = async function(req, res) {
         // 조민성님 이메일
         to: "roybatty0601@kau.kr",
         subject: "[KAUBOARD] 관리자 인증 요청 이메일입니다.",
-        // 추후에 관리자 페이지 등록
+        // 추후에 관리자 페이지 등록
         html: `<a href="http://52.79.130.113/auth/admin?authEmail=${sendEmail}">${sendEmail}</a>`
     }
-
-    const result = smtpTransport.sendMail(mailOptions, (error, responses) => {
-        if (error) {
-            console.log(error);
-            smtpTransport.close();
-            return res.send(response(baseResponse.SERVER_ERROR));
-        } else {
-            smtpTransport.close();
-
-            return res.send(response(baseResponse.SUCCESS, {"authEmail": sendEmail}))
-        }
-    })
 }
 
 /*
