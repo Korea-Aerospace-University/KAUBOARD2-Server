@@ -5,7 +5,6 @@ const baseResponse = require("../../../config/baseResponseStatus");
 const { response, errResponse } = require("../../../config/response");
 const emailCheck = require("../Validation/emailCheck");
 const regexEmail = require("regex-email");
-const { emit } = require("nodemon");
 const { default: axios } = require("axios");
 
 const regexPwd = /^.*(?=^.{6,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
@@ -14,8 +13,8 @@ const regexPwd = /^.*(?=^.{6,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
  * 관리자 페이지 불러오기
  * [GET] view/admin
  */
- exports.getAdminPage = (req, res, next) => {
-    res.sendFile("api-server-node-js-final 2/statics/html/admin_home.html", {
+exports.getAdminPage = (req, res, next) => {
+    res.sendFile("/KAUBOARD2-Server/statics/html/admin_home.html", {
         root: "../",
     });
 };
@@ -26,7 +25,7 @@ const regexPwd = /^.*(?=^.{6,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
  * [GET] view/admin/login
  */
 exports.getAdminLoginPage = (req, res, next) => {
-    res.sendFile("api-server-node-js-final 2/statics/html/admin_login.html", {
+    res.sendFile("/KAUBOARD2-Server/statics/html/admin_login.html", {
         root: "../",
     });
 };
@@ -36,7 +35,7 @@ exports.getAdminLoginPage = (req, res, next) => {
  * [GET] view/admin/register
  */
 exports.getAdminRegisterPage = (req, res, next) => {
-    res.sendFile("api-server-node-js-final 2/statics/html/admin_register.html", {
+    res.sendFile("/KAUBOARD2-Server/statics/html/admin_register.html", {
         root: "../",
     });
 };
@@ -63,14 +62,14 @@ exports.adminLogin = async function (req, res) {
     const siginInResponse = await adminService.adminSignIn(adminEmail, password);
 
     //실패
-    if(siginInResponse.code!==1000){
-        res.write("<script>alert('"+siginInResponse.message.toString()+"')</script>");
+    if (siginInResponse.code !== 1000) {
+        res.write("<script>alert('" + siginInResponse.message.toString() + "')</script>");
         res.write("<script>window.location=\"../../view/notices\"</script>");
     }
-    else{
+    else {
         res.cookie('x-access-token', siginInResponse.result.jwt)
-    
-       return res.redirect("../view/admin")
+
+        return res.redirect("../view/admin")
     }
 };
 
@@ -79,11 +78,11 @@ exports.adminLogin = async function (req, res) {
     [POST] /admin
     body: adminName, adminEmail, password
 */
-exports.postAdmin = async function(req, res) {
+exports.postAdmin = async function (req, res) {
     /*
         Body: adminName, adminEmail, password
     */
-    const {adminName, adminEmail, password} = req.body;
+    const { adminName, adminEmail, password } = req.body;
 
     // validation
     if (!adminName) {
@@ -116,7 +115,7 @@ exports.postAdmin = async function(req, res) {
     [POST] /auth/email
     body: sendEmail
 */
-exports.authSendEmail = async function(req, res) {
+exports.authSendEmail = async function (req, res) {
     /*
         Body: sendEmail
     */
@@ -143,7 +142,7 @@ exports.authSendEmail = async function(req, res) {
     API Name: 관리자 인증 API
     [GET] /auth/admin
 */
-exports.authAdmin = async function(req, res) {
+exports.authAdmin = async function (req, res) {
     /*
         Query String: authEmail
     */
@@ -155,7 +154,7 @@ exports.authAdmin = async function(req, res) {
 }
 
 
-exports.test = async function(req, res) {
+exports.test = async function (req, res) {
     /*
         Body: url
     */
