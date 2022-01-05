@@ -18,7 +18,6 @@ exports.createNotice = async function (adminIdx, title, contents) {
     const insertNoticeParams = [adminIdx, title, contents];
 
     const connection = await pool.getConnection(async (conn) => conn);
-
     const noticeIdResult = await noticeDao.insertNotice(
       connection,
       insertNoticeParams
@@ -53,7 +52,7 @@ exports.updateNotice = async function (noticeIdx, title, contents, pinned, statu
 exports.deleteNotice = async function (noticeIdx) {
   try {
     const connection = await pool.getConnection(async (conn) => conn);
-  
+
     const noticeIdResult = await noticeDao.deleteNotice(
       connection,
       noticeIdx

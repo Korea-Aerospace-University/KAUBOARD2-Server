@@ -36,13 +36,12 @@ async function selectAllNotices(connection) {
                     pinned,
                     case when Notice.status=1 then 'N'
                     when Notice.status=0 then 'Y'
-                    end status
+                    end as status
                 from Notice
                 join Admin on Admin.idx = Notice.adminIdx
                 order by pinned = 'N';
                 `;
     const [noticeRows] = await connection.query(selectNoticesQuery);
-
     return noticeRows;
 }
 

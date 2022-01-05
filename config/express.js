@@ -20,15 +20,15 @@ module.exports = function () {
   app.use(morgan("tiny"))
   app.use(express.json());
   app.use(cookieParser());
-
+  app.use('/public', express.static(__dirname + "/config/views"))
   //ejs
   app.set('view engine', 'ejs');
   app.set('views', __dirname + '/views');
+  // app.use('/views', express.static(__dirname + "/config/views"))
 
   app.use(express.urlencoded({ extended: true }));
 
   app.use(methodOverride());
-
 
   app.use(express.static("statics"));
 
