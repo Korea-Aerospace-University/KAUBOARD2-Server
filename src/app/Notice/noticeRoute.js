@@ -12,7 +12,7 @@ module.exports = function (app) {
   app.get("/api/kauboard/view/notices/:noticeIdx/update", notice.getNoticeById);
 
   // 카우보드 공지 등록 API
-  app.post("/api/kauboard/notices", notice.postNotice);
+  app.post("/api/kauboard/notices/add-notices", notice.postNotice);
 
   // 카우보드 공지 조회 API 
   app.get("/api/kauboard/notices", notice.getNotices);
@@ -21,7 +21,7 @@ module.exports = function (app) {
   app.post("/api/kauboard/notices/:noticeIdx/update", notice.patchNotice);
 
   // 카우보드 공지 삭제 API 
-  app.get("/api/kauboard/notices/:noticeIdx/delete", jwtMiddleware, notice.deleteNotice);
+  app.get("/api/kauboard/notices/:noticeIdx/delete", notice.deleteNotice);
 
   // 학교 공지 조회 API
   app.post("/api/kaunotices", notice.getKauNotices);

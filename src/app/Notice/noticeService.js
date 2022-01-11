@@ -32,10 +32,10 @@ exports.createNotice = async function (adminIdx, title, contents) {
 };
 
 
-exports.updateNotice = async function (noticeIdx, title, contents, pinned, status) {
+exports.updateNotice = async function (noticeIdx, title, contents) {
   try {
     const connection = await pool.getConnection(async (conn) => conn);
-    const updateNoticeParams = [title, contents, pinned, status, noticeIdx];
+    const updateNoticeParams = [title, contents, parseInt(noticeIdx)];
 
     const noticeIdResult = await noticeDao.updateNotice(
       connection,
@@ -44,7 +44,7 @@ exports.updateNotice = async function (noticeIdx, title, contents, pinned, statu
     connection.release();
     return response(baseResponse.SUCCESS);
   } catch (err) {
-    logger.error(`App - createNotice Service error\n: ${err.message}`);
+    logger.error(`App - updateNotice Service error\n: ${err.message}`);
     return errResponse(baseResponse.DB_ERROR);
   }
 };
@@ -60,7 +60,7 @@ exports.deleteNotice = async function (noticeIdx) {
     connection.release();
     return response(baseResponse.SUCCESS);
   } catch (err) {
-    logger.error(`App - createNotice Service error\n: ${err.message}`);
+    logger.error(`App - deleteNotice Service error\n: ${err.message}`);
     return errResponse(baseResponse.DB_ERROR);
   }
 };

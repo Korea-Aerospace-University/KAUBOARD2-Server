@@ -6,6 +6,7 @@ const noticeProvider = require("./noticeProvider");
 const regexEmail = require("regex-email");
 const axios = require("axios");
 const { logger } = require("../../../config/winston");
+const { redirect } = require("express/lib/response");
 
 /**
  * API Name : 공지 등록 페이지 불러오기
@@ -47,7 +48,7 @@ exports.postNotice = async function (req, res) {
         contents
     );
 
-    return res.send(createNoticeResponse);
+    res.redirect('/api/kauboard/view/notices');
 };
 
 /*
@@ -95,33 +96,24 @@ exports.patchNotice = async function (req, res) {
      */
     var adminIdx = 1; //jwt로 변경하기
     const noticeIdx = req.params.noticeIdx
-    const { title, contents, status } = req.body;
-    var pinned = req.body.pinned
+    const { title, contents } = req.body;
 
     // 빈 값 체크
     if (!title) return res.send(response(baseResponse.NOTICE_TITLE_EMPTY));
     if (!contents) return res.send(response(baseResponse.NOTICE_CONTENTS_EMPTY));
-
-    if (pinned == 1)
-        pinned = 'Y'
-    else
-        pinned = 'N'
 
     // 길이 체크
     if (title.length > 30)
         return res.send(response(baseResponse.NOTICE_TITLE_LENGTH));
     if (contents.length > 300)
         return res.send(response(baseResponse.NOTICE_CONTENTS_LENGTH));
-    console.log(pinned, "& ", status)
     const createNoticeResponse = await noticeService.updateNotice(
         noticeIdx,
         title,
-        contents,
-        pinned,
-        status
+        contents
     );
-    res.write("<script>alert('success')</script>");
-    res.write("<script>window.location=\"../../view/notices\"</script>");
+    console.log(createNoticeResponse)
+    res.redirect('/api/kauboard/view/notices')
 };
 
 /*
@@ -132,9 +124,7 @@ exports.deleteNotice = async function (req, res) {
 
     const noticeIdx = req.params.noticeIdx;
     const resultResponse = await noticeService.deleteNotice(noticeIdx);
-    res.write("<script>alert('success')</script>");
-    res.write("<script>window.location=\"../../view/notices\"</script>");
-    return
+    res.redirect("/api/kauboard/view/notices")
 }
 
 /*

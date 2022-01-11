@@ -16,14 +16,12 @@
         <th>내용</th>
         <th>관리자이름</th>
         <th>작성일</th>
-        <th>고정</th>
-        <th>공개</th>
         <th>수정</th>
         <th>삭제</th>
         <% for(var i=0; i<data.result.length; i++){ %>
             <tr>
                 <td>
-                    <%= i+1 %>
+                    <%= data.result[i].idx %>
                 </td>
                 <td>
                     <%= data.result[i].title %>
@@ -36,12 +34,6 @@
                 </td>
                 <td>
                     <%= data.result[i].createdAt %>
-                </td>
-                <td>
-                    <%= data.result[i].pinned %>
-                </td>
-                <td>
-                    <%= data.result[i].status %>
                 </td>
                 <td><button onclick=notice_modify(this.id) id=<%=data.result[i].idx %>>수정</button></td>
                 <td><button onclick=notice_delete(this.id) id=<%=data.result[i].idx %>>삭제</button></td>

@@ -19,35 +19,12 @@
             </div>
             <textarea id="contents" name="contents" cols="70" rows="10"
                 placeholder="내용"><%= data.result.contents %></textarea><br>
-            <input type="checkbox" id="pinned" name="pinned" value="<%= data.result.pinned %>">상단고정
-            <input type="checkbox" id="status" name="status" value="<%= data.result.status %>">공개여부
             <input type="hidden" name="noticeIdx" value="<%= data.result.idx %>">
             <div><input type="submit" value="Submit" id='submit'></div>
         </form>
     </div>
     <div class="currentMessage">
     </div>
-
-    <script>
-
-        if ($("#pinned").val() == 1) {
-            $("#pinned").prop("checked", 1);
-            $("#pinned").prop("value", 1);
-        }
-        else {
-            $("#pinneds").prop("checked", 0);
-            $("#pinned").prop("value", 1);
-        }
-        if ($("#status").val() == 1) {
-            $("#status").prop("checked", 1);
-            $("#pinned").prop("value", 1);
-        }
-        else {
-            $("#status").prop("checked", 0);
-            $("#pinned").prop("value", 1);
-        }
-
-    </script>
 
 </body>
 
