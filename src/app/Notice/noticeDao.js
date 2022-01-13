@@ -1,7 +1,7 @@
 // 공지 등록
 async function insertNotice(connection, insertNoticeParams) {
     const insertNoticeQuery = `
-                INSERT INTO Notice(adminIdx, title, contents) VALUES(?,?,?)
+                INSERT INTO Notice(adminIdx, title, contents, updatedAt) VALUES(?,?,?, now())
                 `;
     const [noticeRows] = await connection.query(
         insertNoticeQuery,
@@ -19,7 +19,6 @@ async function selectNotices(connection) {
                     DATE_FORMAT(Notice.updatedAt, '%Y년 %m월 %d일') as createdAt
                 from Notice
                 join Admin on Admin.idx = Notice.adminIdx
-                order by pinned = 'N';
                 `;
     const [noticeRows] = await connection.query(selectNoticesQuery);
 
@@ -32,17 +31,11 @@ async function selectAllNotices(connection) {
                 select Notice.idx, title,
                     contents,
                     adminName,
-                    DATE_FORMAT(Notice.updatedAt, '%Y년 %m월 %d일') as createdAt,
-                    pinned,
-                    case when Notice.status=1 then 'N'
-                    when Notice.status=0 then 'Y'
-                    end status
+                    DATE_FORMAT(Notice.updatedAt, '%Y년 %m월 %d일') as createdAt
                 from Notice
                 join Admin on Admin.idx = Notice.adminIdx
-                order by pinned = 'N';
                 `;
     const [noticeRows] = await connection.query(selectNoticesQuery);
-
     return noticeRows;
 }
 
@@ -52,14 +45,7 @@ async function selectNoticeById(connection, noticeIdx) {
                 select Notice.idx, title,
                     contents,
                     adminName,
-                    DATE_FORMAT(Notice.updatedAt, '%Y년 %m월 %d일') as createdAt,
-                    case when pinned='Y' then true
-                    when pinned='N' then false
-                    end as pinned
-                    ,
-                    case when Notice.status=0 then true
-                    when Notice.status=1 then false
-                    end as status
+                    DATE_FORMAT(Notice.updatedAt, '%Y년 %m월 %d일') as createdAt
                 from Notice
                 join Admin on Admin.idx = Notice.adminIdx
                 where Notice.idx=?
@@ -71,8 +57,9 @@ async function selectNoticeById(connection, noticeIdx) {
 
 // 공지 수정
 async function updateNotice(connection, updateNoticeParams) {
+    console.log(updateNoticeParams)
     const updateNoticeQuery = `
-                UPDATE Notice set title=?, contents=?, pinned=?, status=? where idx=?
+                UPDATE Notice set title=?, contents=? where idx=?
                 `;
     const [noticeRows] = await connection.query(
         updateNoticeQuery,

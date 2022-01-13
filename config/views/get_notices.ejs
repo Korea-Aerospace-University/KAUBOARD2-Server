@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type='text/css' href="/notices.css">
+    <link rel="stylesheet" type='text/css' href="/css/notices.css">
     <title>Document</title>
 </head>
+
 <body>
     <table>
         <th>index</th>
@@ -14,33 +16,40 @@
         <th>내용</th>
         <th>관리자이름</th>
         <th>작성일</th>
-        <th>고정</th>
-        <th>공개</th>
         <th>수정</th>
         <th>삭제</th>
-        <% for(var i = 0; i<data.result.length; i++){ %>
+        <% for(var i=0; i<data.result.length; i++){ %>
             <tr>
-                <td><%= i+1 %></td>
-                <td><%= data.result[i].title %></td>
-                <td><%= data.result[i].contents %></td>
-                <td><%= data.result[i].adminName %></td>
-                <td><%= data.result[i].createdAt %></td>
-                <td><%= data.result[i].pinned %></td>
-                <td><%= data.result[i].status %></td>
-                <td><button onclick=notice_modify(this.id) id=<%= data.result[i].idx %>>수정</button></td>
-                <td><button onclick=notice_delete(this.id) id=<%= data.result[i].idx %>>삭제</button></td>
+                <td>
+                    <%= data.result[i].idx %>
+                </td>
+                <td>
+                    <%= data.result[i].title %>
+                </td>
+                <td>
+                    <%= data.result[i].contents %>
+                </td>
+                <td>
+                    <%= data.result[i].adminName %>
+                </td>
+                <td>
+                    <%= data.result[i].createdAt %>
+                </td>
+                <td><button onclick=notice_modify(this.id) id=<%=data.result[i].idx %>>수정</button></td>
+                <td><button onclick=notice_delete(this.id) id=<%=data.result[i].idx %>>삭제</button></td>
             </tr>
-        <% } %>
+            <% } %>
     </table>
 </body>
 <script>
-    function notice_modify(index){
-       location.href = "./notices/"+index+"/update"
+    function notice_modify(index) {
+        location.href = "./notices/" + index + "/update"
     }
-    function notice_delete(index){
-        if(confirm("삭제하시겠습니까?")){
-            location.href = "../notices/"+index+"/delete"
+    function notice_delete(index) {
+        if (confirm("삭제하시겠습니까?")) {
+            location.href = "../notices/" + index + "/delete"
         }
     }
 </script>
+
 </html>
