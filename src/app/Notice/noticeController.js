@@ -128,6 +128,21 @@ exports.deleteNotice = async function (req, res) {
 }
 
 /*
+    API Name: 학교 뉴스 조회 API
+    [GET] /kaunews
+*/
+exports.getKauNews = async function (req, res) {
+
+    const url = "http://www.hangkong.ac.kr/proxyUrlConnector.jsp?targetUrl=http://old.kau.ac.kr/page/kauspace/kaunews_list_pick.jsp?noticeYN=Y"
+    axios.get(url).then(rsp => {
+        res.send(response(baseResponse.SUCCESS, rsp.data))
+    }).catch(function (err) {
+        logger.error(`GET KAU NOTICES ERROR\n: ${err.message}`);
+        res.send(response(baseResponse.SERVER_ERROR));
+    })
+}
+
+/*
     API Name: 학교 공지 조회 API
     [POST] /kaunotices?category=
 */

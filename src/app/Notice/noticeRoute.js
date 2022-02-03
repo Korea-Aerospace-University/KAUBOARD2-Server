@@ -17,6 +17,9 @@ module.exports = function (app) {
   // 카우보드 공지 조회 API 
   app.get("/api/kauboard/notices", notice.getNotices);
 
+  // 카우보드 뉴스 조회 API 
+  app.get("/api/kaunews", notice.getKauNews);
+
   // 카우보드 공지 수정 API 
   app.post("/api/kauboard/notices/:noticeIdx/update", notice.patchNotice);
 
