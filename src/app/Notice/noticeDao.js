@@ -13,7 +13,7 @@ async function insertNotice(connection, insertNoticeParams) {
 // 공지 조회
 async function selectNotices(connection) {
     const selectNoticesQuery = `
-                select title,
+                select Notice.idx as id, title,
                     contents,
                     adminName,
                     DATE_FORMAT(Notice.updatedAt, '%Y년 %m월 %d일') as createdAt
