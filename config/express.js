@@ -40,6 +40,7 @@ module.exports = function () {
   require("../src/app/Notice/noticeRoute")(app);
   require("../src/app/Admin/adminRoute")(app);
   require("../src/app/Virus/virusRoute")(app);
+  require("../src/app/Community/communityRoute")(app);
 
   /* 채팅 */
   const io = require("socket.io")(httpServer, {
