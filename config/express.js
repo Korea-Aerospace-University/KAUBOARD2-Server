@@ -41,6 +41,7 @@ module.exports = function () {
   require("../src/app/Admin/adminRoute")(app);
   require("../src/app/Virus/virusRoute")(app);
   require("../src/app/Community/communityRoute")(app);
+  require("../src/app/Login/loginRoute")(app);
 
   /* 채팅 */
   const io = require("socket.io")(httpServer, {
